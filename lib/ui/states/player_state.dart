@@ -1,13 +1,12 @@
 import 'package:flutter/widgets.dart';
-
-import '../../model/songs/song.dart';
+import 'package:week9firebase1/model/songs/RichSong.dart';
 
 class PlayerState extends ChangeNotifier {
-  Song? _currentSong;
+  RichSong? _currentSong;
 
-  Song? get currentSong => _currentSong;
+  RichSong? get currentSong => _currentSong;
 
-  void start(Song song) {
+  void start(RichSong song) {
     _currentSong = song;
 
     notifyListeners();

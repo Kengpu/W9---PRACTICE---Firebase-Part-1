@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../model/songs/song.dart';
+import 'package:week9firebase1/model/songs/RichSong.dart';
 
 class SongTile extends StatelessWidget {
   const SongTile({
@@ -9,8 +8,8 @@ class SongTile extends StatelessWidget {
     required this.isPlaying,
     required this.onTap,
   });
-
-  final Song song;
+  final RichSong song;
+  // final Song song;
   final bool isPlaying;
   final VoidCallback onTap;
 
@@ -32,6 +31,18 @@ class SongTile extends StatelessWidget {
               backgroundImage: NetworkImage(song.imageUrl),
             ),
             title: Text(song.title),
+            subtitle: RichText(
+              text: TextSpan(
+                style: TextStyle(color: Colors.grey[700], fontSize: 14),
+                children: [
+                  TextSpan(
+                    text: "${formatDuration(song.duration)} mins  ",
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  TextSpan(text: "${song.artistName} - ${song.artistGenre}"),
+                ],
+              ),
+            ),
             trailing: Text(
               isPlaying ? "Playing" : "",
               style: TextStyle(color: Colors.amber),
@@ -40,5 +51,12 @@ class SongTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String formatDuration(Duration duration) {
+    final minutes = duration.inMinutes;
+    final seconds = duration.inSeconds % 60;
+    final paddedSeconds = seconds.toString().padLeft(2, '0');
+    return '$minutes:$paddedSeconds';
   }
 }
